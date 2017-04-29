@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-dataDirectory = "../resources/opencv/data"
+dataDirectory = "../resources/opencv/data/"
 
 face_cascade = cv2.CascadeClassifier(dataDirectory + 'haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier(dataDirectory + 'haarcascades/haarcascade_eye.xml')
