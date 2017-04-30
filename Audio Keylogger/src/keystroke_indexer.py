@@ -1,13 +1,13 @@
 from scipy.io import wavfile
 from scipy import signal
+from numpy import mean, std
 
-#from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 
 def keystrokeStartIndexes(wav_filename):
 	
 	c_minFreqHz = 400
 	c_maxFreqHz = 12000
-	c_thresholdEnergy = 120
 
 	freq, data = wavfile.read(wav_filename)
 	
@@ -30,16 +30,19 @@ def keystrokeStartIndexes(wav_filename):
 
 	freqs = [(index, freq) for index, freq in enumerate(f) if c_minFreqHz < freq < c_maxFreqHz]
 	energies = [sum(col) for col in zip(*Sxx[[f[0] for f in freqs]])]
+	threshold = mean(energies) + 1.5*std(energies)
 	#plt.plot(t, energies)
-	energies = [(i,e) for i, e in enumerate(energies) if e > c_thresholdEnergy]
+	energies = [(i,e) for i, e in enumerate(energies) if e > threshold]
 	print(len(energies))
 	print(t[[e[0] for e in energies]])
 
-	return ([freq*t[[e[0] for e in energies]]])
+	#plt.plot(t[[e[0] for e in energies]],[e[1] for e in energies])
+	#plt.show()
+
+	return (freq*(t[[e[0] for e in energies]])).tolist()
 
 
-	# plt.plot(t[[e[0] for e in energies]],[e[1] for e in energies])
-	# plt.show()
+
 
 	# for e in energies:
 	# 	wavfile.write(str(e[0]) + '.wav', freq, data[range(freq*t[e[0]], freq*t[e[0]])])
