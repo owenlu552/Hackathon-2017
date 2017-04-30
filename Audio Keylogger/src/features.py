@@ -50,7 +50,9 @@ def MFCC_vector(samples):
 	plt.tight_layout()
 	plt.show()
 	"""
-	return m.reshape(-1).tolist()
+	m = m.reshape(-1)
+	m /=sum(m)
+	return m
 
 
 #takes audio data samples (integer) and computes FFT features
@@ -93,18 +95,3 @@ def decode_bytes(byte_array, channel):
 		data[i] = sample
 	return data
 	
-	
-def test_FFT():
-	len = 4000
-	audio = wave.open('C:/Users/Owen/Documents/GitHub/Hackathon 2017/Audio Keylogger/resources/single_key.wav', 'rb')
-	sample_bytes = audio.readframes(len)
-	samples = decode_bytes(sample_bytes,0)
-	FFT_vector(samples)
-	
-def test_MFCC():
-	len = 4000
-	audio = wave.open('C:/Users/Owen/Documents/GitHub/Hackathon 2017/Audio Keylogger/resources/single_key.wav', 'rb')
-	sample_bytes = audio.readframes(len)
-	samples = decode_bytes(sample_bytes,0)
-	print(MFCC_vector(samples[100:2000]))
-	audio.close()
