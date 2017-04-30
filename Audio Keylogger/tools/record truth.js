@@ -11,27 +11,33 @@ $(document).on('keyup', (e) => truth.up.push({
 		't': e.timeStamp
 	}));
 
-textFile = null;
-makeTextFile = function(text) {
-	var data = new Blob([text], {
-			type: 'text/plain'
-		});
+$(document).ready(() => {
+	function countdown(audio, count) {
+		if (audio) {
+			new Audio(audio + '.mp3').play();
+		}
+		$('#countdown').text(count);
+	};
 
-	// If we are replacing a previously generated file we need to
-	// manually revoke the object URL to avoid memory leaks.
-	if (textFile !== null) {
-		window.URL.revokeObjectURL(textFile);
-	}
-
-	textFile = window.URL.createObjectURL(data);
-
-	// returns a URL you can use as a href
-	return textFile;
-};
+	setTimeout(() => countdown('beep', 3), 1000);
+	setTimeout(() => countdown('beep', 2), 2000);
+	setTimeout(() => countdown('beep', 1), 3000);
+	setTimeout(() => countdown('high beep', 'Start!'), 4000);
+	setTimeout(() => countdown(null, ''), 5000);
+});
 
 save = function() {
+	function makeTextFile(text) {
+		var data = new Blob([text], {
+				type: 'text/plain'
+			});
+
+		// returns a URL you can use as a href
+		return window.URL.createObjectURL(data);
+	};
+
 	var link = document.createElement('a');
 	link.setAttribute('download', 'info.txt');
 	link.href = makeTextFile(truth.down.map(e => e.key + ',' + e.t).join('\n'));
 	link.dispatchEvent(new MouseEvent('click'));
-}
+};
