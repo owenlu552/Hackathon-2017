@@ -4,7 +4,7 @@ from numpy import mean, std
 
 from matplotlib import pyplot as plt
 
-def keystrokeStartIndexes(wav_filename):
+def keystroke_starts(wav_filename):
 	
 	c_minFreqHz = 400
 	c_maxFreqHz = 12000
@@ -57,6 +57,6 @@ def keystrokeStartIndexes(wav_filename):
 
 if __name__=="__main__":
 	wav_filename = "../resources/abc.wav"
-	starts = keystrokeStartIndexes(wav_filename)
+	starts = keystroke_starts(wav_filename)
 	print(starts)
 

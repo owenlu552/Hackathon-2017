@@ -1,0 +1,31 @@
+.countdown {
+	display: inline-table;
+	vertical-align: top;
+	margin-left: 2em;
+}
+
+.lights {
+	width: 22px;
+	height: 62px;
+	border-radius: 5px;
+	background-color: black;
+	padding: 5px
+}
+
+.light {
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+}
+
+#red {
+	background-color: red;
+}
+
+#yellow {
+	background-color: yellow;
+}
+
+#green {
+	background-color: green;
+}

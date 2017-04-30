@@ -49,7 +49,7 @@ def MFCC_vector(samples):
 	plt.tight_layout()
 	plt.show()
 	"""
-	return m
+	return m.reshape(-1).tolist()
 
 
 #takes audio data samples (integer) and computes FFT features
