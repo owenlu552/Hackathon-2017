@@ -5,7 +5,7 @@ from features import *
 import numpy
 from matplotlib import pyplot as plt
 
-TIMING_MATCH_THRESHOLD = 22000
+TIMING_MATCH_THRESHOLD = 2200
 
 def get_training_set(wav_file, truth_file):
 
@@ -19,14 +19,10 @@ def get_training_set(wav_file, truth_file):
 		first_row = next(reader)
 		truth.append(first_row[0])
 		offset_idx = float(first_row[1])/1000*SAMPLE_RATE - key_idx[0]
-		print(first_row)
-		#print(offset_idx)
 		expected_idx.append(key_idx[0])
 		
 		for row in reader:
-			print(row)
 			truth.append(row[0])
-			#print(row[1])
 			expected_idx.append(float(row[1])/1000*SAMPLE_RATE - offset_idx)
 
 		
@@ -37,7 +33,6 @@ def get_training_set(wav_file, truth_file):
 	exp_offset = 0
 	for i in range(0,len(key_idx)):
 		delta = key_idx[i+key_offset]-expected_idx[i+exp_offset]
-		#print(delta)
 		if delta > TIMING_MATCH_THRESHOLD:
 			key_offset-=1
 		elif delta < -TIMING_MATCH_THRESHOLD:
@@ -47,6 +42,7 @@ def get_training_set(wav_file, truth_file):
 			truth_pruned.append(truth[i+exp_offset])
 			exp_idx_pruned.append(expected_idx[i+exp_offset])
 	
+	"""
 	print(len(key_idx))
 	print(len(key_idx_pruned))
 	print(len(expected_idx))
@@ -56,8 +52,8 @@ def get_training_set(wav_file, truth_file):
 		print(exp_idx_pruned[i])
 		print(key_idx_pruned[i])
 		print('-')
-
-	
+	"""
+		
 	features = extract_features(wav_file, key_idx_pruned)
 	return features, truth_pruned
 	
