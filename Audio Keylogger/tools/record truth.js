@@ -12,18 +12,24 @@ $(document).on('keyup', (e) => truth.up.push({
 	}));
 
 $(document).ready(() => {
-	function countdown(audio, count) {
+	function countdown(audio, light) {
 		if (audio) {
 			new Audio(audio + '.mp3').play();
 		}
-		$('#countdown').text(count);
+		if (light) {
+			var $light = $('#' + light);
+			$light.css('background-color', '').css('color', 'black');
+			setTimeout(() => $light.css('background-color', 'gray').css('color', 'white'), 1000);
+		} else {
+			$('.countdown').html('');
+		}
 	};
 
-	setTimeout(() => countdown('beep', 3), 1000);
-	setTimeout(() => countdown('beep', 2), 2000);
-	setTimeout(() => countdown('beep', 1), 3000);
-	setTimeout(() => countdown('high beep', 'Start!'), 4000);
-	setTimeout(() => countdown(null, ''), 5000);
+	setTimeout(() => countdown('beep', 'red'), 1000);
+	setTimeout(() => countdown('beep', 'yellow'), 2000);
+	setTimeout(() => countdown('beep', 'green'), 3000);
+	setTimeout(() => countdown('high beep', 'start'), 4000);
+	setTimeout(() => countdown(null, null), 5000);
 });
 
 save = function() {
