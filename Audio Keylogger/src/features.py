@@ -27,6 +27,7 @@ MEL_BANDS = 32
 #key_idx is a list of indices marking the start of a key press
 def extract_features(wav_file, key_idx):
 	audio = wave.open(wav_file, 'rb')
+	sr = audio.getframerate()
 	key_vectors = []
 	for idx in key_idx:
 		audio.setpos(int(idx))
